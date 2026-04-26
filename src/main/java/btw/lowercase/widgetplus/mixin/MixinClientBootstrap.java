@@ -2,7 +2,7 @@ package btw.lowercase.widgetplus.mixin;
 
 import btw.lowercase.widgetplus.impl.WidgetEntries;
 import btw.lowercase.widgetplus.impl.properties.ConditionalWidgetProperties;
-import btw.lowercase.widgetplus.impl.properties.RangeSelectWidgetProperties;
+import btw.lowercase.widgetplus.impl.properties.RangeDispatchWidgetProperties;
 import btw.lowercase.widgetplus.impl.properties.SelectWidgetProperties;
 import net.minecraft.client.ClientBootstrap;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +17,6 @@ public abstract class MixinClientBootstrap {
         WidgetEntries.bootstrap();
         SelectWidgetProperties.bootstrap();
         ConditionalWidgetProperties.bootstrap();
-        RangeSelectWidgetProperties.bootstrap();
+        RangeDispatchWidgetProperties.bootstrap();
     }
 }

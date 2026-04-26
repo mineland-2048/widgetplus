@@ -7,7 +7,7 @@
 		"property": "widgetplus:hovered",
 		"on_true": {
 			"type": "widgetplus:texture",
-			"texture": "minecraft:widget/slider_hovered"
+			"texture": "minecraft:widget/slider_highlighted"
 		},
 		"on_false": {
 			"type": "widgetplus:texture",

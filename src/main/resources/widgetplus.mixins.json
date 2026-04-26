@@ -1,17 +1,18 @@
 {
-	"required": true,
-	"package": "btw.lowercase.widgetplus.mixin",
-	"compatibilityLevel": "JAVA_25",
-	"client": [
-		"MixinAbstractButton",
-		"MixinAbstractSliderButton",
-		"MixinClientBootstrap",
-		"MixinFramerateLimitTracker_UncapUIFPS"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "required": true,
+  "package": "btw.lowercase.widgetplus.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "AbstractSliderButtonAccessor",
+    "MixinAbstractButton",
+    "MixinAbstractSliderButton",
+    "MixinClientBootstrap",
+    "MixinFramerateLimitTracker_UncapUIFPS"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }

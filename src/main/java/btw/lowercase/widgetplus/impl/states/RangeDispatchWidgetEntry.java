@@ -2,8 +2,8 @@ package btw.lowercase.widgetplus.impl.states;
 
 import btw.lowercase.widgetplus.impl.WidgetEntries;
 import btw.lowercase.widgetplus.impl.WidgetState;
-import btw.lowercase.widgetplus.impl.properties.RangeSelectWidgetProperties;
-import btw.lowercase.widgetplus.impl.property.RangeSelectWidgetProperty;
+import btw.lowercase.widgetplus.impl.properties.RangeDispatchWidgetProperties;
+import btw.lowercase.widgetplus.impl.property.RangeDispatchWidgetProperty;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -15,11 +15,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public record RangeSelectWidgetEntry(RangeSelectWidgetProperty property, float scale, float[] thresholds,
-                                     WidgetEntry[] entries, WidgetEntry fallback) implements WidgetEntry {
+public record RangeDispatchWidgetEntry(RangeDispatchWidgetProperty property, float scale, float[] thresholds,
+                                       WidgetEntry[] entries, WidgetEntry fallback) implements WidgetEntry {
     @Override
     public @Nullable WidgetState resolve(final AbstractWidget widget) {
-        final float value = this.property.get() * this.scale;
+        final float value = this.property.get(widget) * this.scale;
 
         WidgetEntry entry;
         if (Float.isNaN(value)) {
@@ -52,12 +52,12 @@ public record RangeSelectWidgetEntry(RangeSelectWidgetProperty property, float s
         }
     }
 
-    public record Unbaked(RangeSelectWidgetProperty property,
+    public record Unbaked(RangeDispatchWidgetProperty property,
                           float scale,
                           List<Entry> entries,
                           WidgetEntry.Unbaked fallback) implements WidgetEntry.Unbaked {
         public static final MapCodec<Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                RangeSelectWidgetProperties.MAP_CODEC.forGetter(Unbaked::property),
+                RangeDispatchWidgetProperties.MAP_CODEC.forGetter(Unbaked::property),
                 Codec.FLOAT.optionalFieldOf("scale", 1.0F).forGetter(Unbaked::scale),
                 Entry.CODEC.listOf().fieldOf("entries").forGetter(Unbaked::entries),
                 WidgetEntries.CODEC.fieldOf("fallback").forGetter(Unbaked::fallback)
@@ -81,7 +81,7 @@ public record RangeSelectWidgetEntry(RangeSelectWidgetProperty property, float s
                 entries[i] = entry.widget.bake();
             }
 
-            return new RangeSelectWidgetEntry(this.property, this.scale, thresholds, entries, this.fallback.bake());
+            return new RangeDispatchWidgetEntry(this.property, this.scale, thresholds, entries, this.fallback.bake());
         }
     }
 
