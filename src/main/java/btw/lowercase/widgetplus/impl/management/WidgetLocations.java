@@ -1,4 +1,4 @@
-package btw.lowercase.widgetplus.impl;
+package btw.lowercase.widgetplus.impl.management;
 
 import btw.lowercase.widgetplus.WidgetPlus;
 import net.minecraft.resources.Identifier;
