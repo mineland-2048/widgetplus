@@ -2,8 +2,8 @@ package btw.lowercase.widgetplus.mixin;
 
 import btw.lowercase.widgetplus.WidgetPlus;
 import btw.lowercase.widgetplus.config.WidgetPlusConfig;
+import btw.lowercase.widgetplus.impl.WidgetDefinition;
 import btw.lowercase.widgetplus.impl.WidgetState;
-import btw.lowercase.widgetplus.impl.management.WidgetLocations;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
@@ -24,7 +24,7 @@ public abstract class MixinAbstractSliderButton extends AbstractWidget.WithInact
     @WrapOperation(method = "extractWidgetRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIIII)V", ordinal = 0))
     private void widgetplus$blitSliderBackground(final GuiGraphicsExtractor instance, final RenderPipeline renderPipeline, final Identifier location, final int x, final int y, final int width, final int height, final int color, final Operation<Void> original) {
         if (WidgetPlusConfig.instance().enabled) {
-            final WidgetState state = WidgetPlus.getWidgetManager().getState(WidgetLocations.SLIDER, this);
+            final WidgetState state = WidgetPlus.getWidgetManager().getState(WidgetDefinition.Type.SLIDER, this);
             if (state != null) {
                 original.call(instance, state.pipeline().orElse(renderPipeline), state.texture(), x, y, width, height, color);
             }
@@ -38,7 +38,7 @@ public abstract class MixinAbstractSliderButton extends AbstractWidget.WithInact
     @WrapOperation(method = "extractWidgetRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIIII)V", ordinal = 1))
     private void widgetplus$blitSliderButton(final GuiGraphicsExtractor instance, final RenderPipeline renderPipeline, final Identifier location, final int x, final int y, final int width, final int height, final int color, final Operation<Void> original) {
         if (WidgetPlusConfig.instance().enabled) {
-            final WidgetState state = WidgetPlus.getWidgetManager().getState(WidgetLocations.SLIDER_HANDLE, this, 3);
+            final WidgetState state = WidgetPlus.getWidgetManager().getState(WidgetDefinition.Type.SLIDER_HANDLE, this, 3);
             if (state != null) {
                 original.call(instance, state.pipeline().orElse(renderPipeline), state.texture(), x, y, width, height, color);
             }

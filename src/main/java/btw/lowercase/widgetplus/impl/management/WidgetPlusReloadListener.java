@@ -25,7 +25,7 @@ public class WidgetPlusReloadListener implements PreparableReloadListener {
             widgetManager.clear();
 
             int total = 0;
-            final AtomicInteger succesful = new AtomicInteger();
+            final AtomicInteger successful = new AtomicInteger();
             final AtomicInteger error = new AtomicInteger();
             for (Map.Entry<Identifier, Resource> entry : sharedState.resourceManager().listResources("widgets", Identifier -> Identifier.getPath().endsWith(".json")).entrySet()) {
                 {
@@ -37,13 +37,12 @@ public class WidgetPlusReloadListener implements PreparableReloadListener {
                         final JsonObject json = JsonParser.parseReader(new InputStreamReader(stream)).getAsJsonObject();
                         WidgetDefinition.CODEC.parse(JsonOps.INSTANCE, json).ifSuccess(widgetDefinition -> {
                             widgetManager.register(widgetDefinition.target().type(), id, widgetDefinition);
-                            succesful.getAndIncrement();
+                            successful.getAndIncrement();
                         }).ifError(widgetDefinitionError -> {
                             WidgetPlus.getLogger().error(widgetDefinitionError.message());
                             error.getAndIncrement();
                         });
 
-//                    WidgetPlus.getLogger().info("Parsed %s (?)".formatted(id.toString()));
                     } catch (Exception e) {
                         WidgetPlus.getLogger().error("Couldn't parse '{}': \n{}", id, e.getCause());
                         error.getAndIncrement();
@@ -52,7 +51,7 @@ public class WidgetPlusReloadListener implements PreparableReloadListener {
             }
 
             WidgetPlus.getLogger().info("Finished loading {} widgets", total);
-            WidgetPlus.getLogger().info("{} Parsed jsons, {} Errors.", succesful, error);
+            WidgetPlus.getLogger().info("{} Parsed jsons, {} Errors.", successful, error);
         }).thenCompose(preparationBarrier::wait);
     }
 }

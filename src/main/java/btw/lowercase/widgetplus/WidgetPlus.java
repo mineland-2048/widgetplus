@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class WidgetPlus {
+    // TODO: Move these two out of here into the build script.
+    // -mineland 2026-04-26
     public static final String MOD_ID = "widgetplus";
     public static final String VERSION = "1.0";
     private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
