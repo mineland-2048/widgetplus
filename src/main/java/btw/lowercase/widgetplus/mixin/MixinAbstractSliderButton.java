@@ -30,6 +30,7 @@ public abstract class MixinAbstractSliderButton extends AbstractWidget.WithInact
             final WidgetState state = entry.resolve(this);
             if (state != null) {
                 final RenderPipeline.Builder pipeline = RenderPipeline.builder(RenderPipelines.GUI_TEXTURED_SNIPPET);
+                pipeline.withLocation("pipeline/dynamic_widget_" + this.hashCode());
                 state.pipelineOverrides().ifPresent(overrides -> overrides.apply(pipeline));
                 original.call(instance, pipeline.build(), state.texture(), x, y, width, height, color);
             } else {
@@ -47,6 +48,7 @@ public abstract class MixinAbstractSliderButton extends AbstractWidget.WithInact
             final WidgetState state = entry.resolve(this);
             if (state != null) {
                 final RenderPipeline.Builder pipeline = RenderPipeline.builder(RenderPipelines.GUI_TEXTURED_SNIPPET);
+                pipeline.withLocation("pipeline/dynamic_slider_" + this.hashCode());
                 state.pipelineOverrides().ifPresent(overrides -> overrides.apply(pipeline));
                 original.call(instance, pipeline.build(), state.texture(), x, y, width, height, color);
             } else {

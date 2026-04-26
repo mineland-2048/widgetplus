@@ -30,6 +30,7 @@ public abstract class MixinAbstractButton extends AbstractWidget.WithInactiveMes
             final WidgetState state = entry.resolve(this);
             if (state != null) {
                 final RenderPipeline.Builder pipeline = RenderPipeline.builder(RenderPipelines.GUI_TEXTURED_SNIPPET);
+                pipeline.withLocation("pipeline/dynamic_button_" + this.hashCode());
                 state.pipelineOverrides().ifPresent(overrides -> overrides.apply(pipeline));
                 original.call(instance, pipeline.build(), state.texture(), x, y, width, height, color);
             } else {
