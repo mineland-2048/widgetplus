@@ -16,8 +16,9 @@ public class ConditionalWidgetProperties {
     public static void bootstrap() {
         ID_MAPPER.put(WidgetPlus.id("hovered"), Hovered.MAP_CODEC);
         ID_MAPPER.put(WidgetPlus.id("focused"), Focused.MAP_CODEC);
+        ID_MAPPER.put(WidgetPlus.id("hovered_or_focused"), HoveredOrFocused.MAP_CODEC);
         ID_MAPPER.put(WidgetPlus.id("disabled"), Disabled.MAP_CODEC);
-        ID_MAPPER.put(WidgetPlus.id("keybind_down"), IsKeybindDown.MAP_CODEC);
+        ID_MAPPER.put(WidgetPlus.id("is_key_down"), IsKeyDown.MAP_CODEC);
         ID_MAPPER.put(WidgetPlus.id("in_world"), InWorld.MAP_CODEC);
     }
 }

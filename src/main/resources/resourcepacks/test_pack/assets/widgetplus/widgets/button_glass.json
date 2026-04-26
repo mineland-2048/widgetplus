@@ -4,22 +4,15 @@
 	},
 	"widget": {
 		"type": "widgetplus:condition",
-		"property": "widgetplus:disabled",
+		"property": "widgetplus:is_key_down",
+		"key": "key.keyboard.backspace",
 		"on_true": {
 			"type": "widgetplus:texture",
-			"texture": "widgetplus:widget/button_glass_disabled"
+			"texture": "minecraft:widget/button_highlighted"
 		},
 		"on_false": {
-			"type": "widgetplus:condition",
-			"property": "widgetplus:hovered",
-			"on_true": {
-				"type": "widgetplus:texture",
-				"texture": "widgetplus:widget/button_glass_highlighted"
-			},
-			"on_false": {
-				"type": "widgetplus:texture",
-				"texture": "widgetplus:widget/button_glass"
-			}
+			"type": "widgetplus:texture",
+			"texture": "minecraft:widget/button"
 		}
 	}
 }
