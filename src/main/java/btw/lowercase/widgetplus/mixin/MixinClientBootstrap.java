@@ -1,6 +1,6 @@
 package btw.lowercase.widgetplus.mixin;
 
-import btw.lowercase.widgetplus.impl.WidgetStates;
+import btw.lowercase.widgetplus.impl.WidgetEntries;
 import btw.lowercase.widgetplus.impl.properties.ConditionalWidgetProperties;
 import btw.lowercase.widgetplus.impl.properties.RangeSelectWidgetProperties;
 import btw.lowercase.widgetplus.impl.properties.SelectWidgetProperties;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinClientBootstrap {
     @Inject(method = "bootstrap", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/item/properties/numeric/RangeSelectItemModelProperties;bootstrap()V", shift = At.Shift.AFTER))
     private static void widgetplus$bootstrap(final CallbackInfo ci) {
-        WidgetStates.bootstrap();
+        WidgetEntries.bootstrap();
         SelectWidgetProperties.bootstrap();
         ConditionalWidgetProperties.bootstrap();
         RangeSelectWidgetProperties.bootstrap();

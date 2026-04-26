@@ -9,7 +9,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;
 
-public class WidgetStates {
+public class WidgetEntries {
     private static final ExtraCodecs.LateBoundIdMapper<Identifier, MapCodec<? extends WidgetEntry.Unbaked>> ID_MAPPER = new ExtraCodecs.LateBoundIdMapper<>();
     public static final Codec<WidgetEntry.Unbaked> CODEC = ID_MAPPER.codec(Identifier.CODEC).dispatch(WidgetEntry.Unbaked::type, c -> c);
 

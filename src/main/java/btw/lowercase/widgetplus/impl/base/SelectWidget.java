@@ -1,6 +1,6 @@
 package btw.lowercase.widgetplus.impl.base;
 
-import btw.lowercase.widgetplus.impl.WidgetStates;
+import btw.lowercase.widgetplus.impl.WidgetEntries;
 import btw.lowercase.widgetplus.impl.property.SelectWidgetProperty;
 import btw.lowercase.widgetplus.impl.states.WidgetEntry;
 import com.mojang.serialization.Codec;
@@ -18,7 +18,7 @@ public class SelectWidget {
         public static <T> Codec<SelectWidget.SwitchCase<T>> codec(final Codec<T> valueCodec) {
             return RecordCodecBuilder.create(instance -> instance.group(
                     ExtraCodecs.nonEmptyList(ExtraCodecs.compactListCodec(valueCodec)).fieldOf("when").forGetter(SelectWidget.SwitchCase::values),
-                    WidgetStates.CODEC.fieldOf("widget").forGetter(SelectWidget.SwitchCase::widget)
+                    WidgetEntries.CODEC.fieldOf("widget").forGetter(SelectWidget.SwitchCase::widget)
             ).apply(instance, SelectWidget.SwitchCase::new));
         }
     }
