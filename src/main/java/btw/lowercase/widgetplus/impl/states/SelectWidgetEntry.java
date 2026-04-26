@@ -72,20 +72,20 @@ public record SelectWidgetEntry<T>(SelectWidgetProperty<T> property, EntrySelect
             }
 
             bakedEntries.defaultReturnValue(fallback);
-            return new SelectWidgetEntry<>(this.property, this.createModelGetter(bakedEntries));
+            return new SelectWidgetEntry<>(this.property, this.createEntrySelector(bakedEntries));
         }
 
-        private EntrySelector<T> createModelGetter(final Object2ObjectMap<T, WidgetEntry> originalEntries) {
+        private EntrySelector<T> createEntrySelector(final Object2ObjectMap<T, WidgetEntry> originalEntries) {
             final WidgetEntry defaultEntry = originalEntries.defaultReturnValue();
 
-            final Object2ObjectMap<T, WidgetEntry> remappedModels = new Object2ObjectOpenHashMap<>(originalEntries.size());
-            remappedModels.defaultReturnValue(defaultEntry);
-            originalEntries.forEach((value, model) -> {
+            final Object2ObjectMap<T, WidgetEntry> remappedEntries = new Object2ObjectOpenHashMap<>(originalEntries.size());
+            remappedEntries.defaultReturnValue(defaultEntry);
+            originalEntries.forEach((value, entry) -> {
                 final DataResult<T> dataResult = this.property.valueCodec().encodeStart(JsonOps.INSTANCE, value).flatMap(element -> this.property.valueCodec().parse(JsonOps.INSTANCE, element));
-                dataResult.ifSuccess(it -> remappedModels.put(it, model));
+                dataResult.ifSuccess(it -> remappedEntries.put(it, entry));
             });
 
-            return (value) -> value == null ? defaultEntry : (WidgetEntry) remappedModels.get(value);
+            return (value) -> value == null ? defaultEntry : (WidgetEntry) remappedEntries.get(value);
         }
     }
 }
