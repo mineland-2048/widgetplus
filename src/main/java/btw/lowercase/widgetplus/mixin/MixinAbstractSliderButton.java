@@ -27,9 +27,9 @@ public abstract class MixinAbstractSliderButton extends AbstractWidget.WithInact
             final WidgetState state = WidgetPlus.getWidgetManager().getState(WidgetLocations.SLIDER, this);
             if (state != null) {
                 original.call(instance, state.pipeline().orElse(renderPipeline), state.texture(), x, y, width, height, color);
-            } else {
-                return; // Empty
             }
+
+            return; // Empty
         }
 
         original.call(instance, renderPipeline, location, x, y, width, height, color);
@@ -41,9 +41,9 @@ public abstract class MixinAbstractSliderButton extends AbstractWidget.WithInact
             final WidgetState state = WidgetPlus.getWidgetManager().getState(WidgetLocations.SLIDER_HANDLE, this, 3);
             if (state != null) {
                 original.call(instance, state.pipeline().orElse(renderPipeline), state.texture(), x, y, width, height, color);
-            } else {
-                return; // Empty
             }
+
+            return; // Empty
         }
 
         original.call(instance, renderPipeline, location, x, y, width, height, color);
