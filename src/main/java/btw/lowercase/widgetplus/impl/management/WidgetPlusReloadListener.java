@@ -42,9 +42,8 @@ public class WidgetPlusReloadListener implements PreparableReloadListener {
                             WidgetPlus.getLogger().error(widgetDefinitionError.message());
                             error.getAndIncrement();
                         });
-
-                    } catch (Exception e) {
-                        WidgetPlus.getLogger().error("Couldn't parse '{}': \n{}", id, e.getCause());
+                    } catch (final Throwable throwable) {
+                        WidgetPlus.getLogger().error("Couldn't parse '{}': \n{}", id, throwable.getCause());
                         error.getAndIncrement();
                     }
                 }
