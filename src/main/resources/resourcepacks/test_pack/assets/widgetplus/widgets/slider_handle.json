@@ -7,11 +7,11 @@
 		"property": "widgetplus:hovered",
 		"on_true": {
 			"type": "widgetplus:texture",
-			"texture": "minecraft:sprites/widget/slider_handle_hovered"
+			"texture": "minecraft:widget/slider_handle_hovered"
 		},
 		"on_false": {
 			"type": "widgetplus:texture",
-			"texture": "minecraft:sprites/widget/slider_handle"
+			"texture": "minecraft:widget/slider_handle"
 		}
 	}
 }
