@@ -1,7 +1,10 @@
 {
+	"target": {
+		"type": "slider"
+	},
 	"widget": {
 		"type": "widgetplus:condition",
-		"condition": "widgetplus:hovered",
+		"property": "widgetplus:hovered",
 		"on_true": {
 			"type": "widgetplus:texture",
 			"texture": "minecraft:sprites/widget/slider_hovered"

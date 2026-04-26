@@ -1,0 +1,25 @@
+{
+	"target": {
+		"type": "button"
+	},
+	"widget": {
+		"type": "widgetplus:condition",
+		"property": "widgetplus:disabled",
+		"on_true": {
+			"type": "widgetplus:texture",
+			"texture": "widgetplus:sprites/widget/button_glass_disabled"
+		},
+		"on_false": {
+			"type": "widgetplus:condition",
+			"property": "widgetplus:hovered",
+			"on_true": {
+				"type": "widgetplus:texture",
+				"texture": "widgetplus:sprites/widget/button_glass_highlighted"
+			},
+			"on_false": {
+				"type": "widgetplus:texture",
+				"texture": "widgetplus:sprites/widget/button_glass"
+			}
+		}
+	}
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "type": "object",
+  "properties": {
+    "target": {
+      "type": "object",
+      "description": "Target of this WidgetDefinition",
+      "properties": {
+        "type": {
+          "additionalProperties": false,
+          "enum": [
+            "button",
+            "slider",
+            "slider_handle",
+            "scrollbar",
+            "scrollbar_knob",
+            "edit_box",
+            "checkbox"
+          ],
+          "type": "string",
+          "description": "The type of widget this targets"
+        },
+        "hash_value": {
+          "type": "number",
+          "description": "The hash() value of the specific widget. Only for hacky stuff"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "widget": {
+      "type": "object",
+      "description": "The main widget definition",
+      "properties": {
+        "type": {
+          "enum": [
+            "widgetplus:empty",
+            "widgetplus:texture",
+            "widgetplus:range_dispatch",
+            "widgetplus:select",
+            "widgetplus:condition"
+          ],
+          "type": "string",
+          "description": "The widget model type."
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "target",
+    "widget"
+  ]
+}
