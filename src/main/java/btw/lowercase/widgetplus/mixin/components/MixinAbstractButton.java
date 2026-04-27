@@ -25,12 +25,12 @@ public abstract class MixinAbstractButton extends AbstractWidget.WithInactiveMes
 
     @WrapOperation(method = "extractDefaultSprite", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIIII)V"))
     private void widgetplus$blitButton(final GuiGraphicsExtractor instance, final RenderPipeline renderPipeline, final Identifier location, final int x, final int y, final int width, final int height, final int color, final Operation<Void> original) {
-        final WidgetRenderContext blitRenderContext = WidgetRenderContext.of(instance, renderPipeline, location, x, y, width, height, color);
+        final WidgetRenderContext widgetRenderContext = WidgetRenderContext.of(instance, renderPipeline, location, x, y, width, height, color);
         final Consumer<WidgetRenderContext> defaultRender = (renderContext) -> original.call(renderContext.guiGraphics(), renderContext.pipeline(), renderContext.location(), renderContext.x(), renderContext.y(), renderContext.width(), renderContext.height(), renderContext.color());
         if (WidgetPlusConfig.instance().enabled) {
-            WidgetRenderer.renderDefinition(WidgetDefinition.Type.BUTTON, this, blitRenderContext, defaultRender);
+            WidgetRenderer.renderDefinition(WidgetDefinition.Type.BUTTON, this, widgetRenderContext, defaultRender);
         } else {
-            defaultRender.accept(blitRenderContext);
+            defaultRender.accept(widgetRenderContext);
         }
     }
 }
