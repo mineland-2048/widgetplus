@@ -18,11 +18,7 @@ public record ServerMOTD() implements SelectWidgetProperty<Component> {
     public @NonNull Component get(final AbstractWidget widget) {
         final Minecraft minecraft = Minecraft.getInstance();
         final ServerData serverData = minecraft.getCurrentServer();
-        if (!minecraft.isSingleplayer() && serverData != null) {
-            return serverData.motd;
-        } else {
-            return Component.empty();
-        }
+        return !minecraft.isSingleplayer() && serverData != null ? serverData.motd : Component.empty();
     }
 
     @Override

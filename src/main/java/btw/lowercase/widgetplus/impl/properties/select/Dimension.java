@@ -17,11 +17,7 @@ public record Dimension() implements SelectWidgetProperty<ResourceKey<Level>> {
     @Override
     public @Nullable ResourceKey<Level> get(final AbstractWidget widget) {
         final Level level = Minecraft.getInstance().level;
-        if (level != null) {
-            return level.dimension();
-        } else {
-            return null;
-        }
+        return level != null ? level.dimension() : null;
     }
 
     @Override
