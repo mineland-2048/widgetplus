@@ -3,14 +3,19 @@ package btw.lowercase.widgetplus.impl.management;
 import btw.lowercase.widgetplus.WidgetPlus;
 import btw.lowercase.widgetplus.impl.WidgetDefinition;
 import btw.lowercase.widgetplus.impl.WidgetState;
-import btw.lowercase.widgetplus.impl.entries.primitive.*;
+import btw.lowercase.widgetplus.impl.entries.primitive.Fill;
+import btw.lowercase.widgetplus.impl.entries.primitive.FillGradient;
+import btw.lowercase.widgetplus.impl.entries.primitive.Outline;
+import btw.lowercase.widgetplus.impl.entries.primitive.OutlineGradient;
 import btw.lowercase.widgetplus.impl.util.Bounds;
+import btw.lowercase.widgetplus.impl.util.UV;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.ARGB;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,14 +29,12 @@ public final class WidgetRenderer {
     public static void renderState(final WidgetState state, final WidgetRenderContext renderContext, final Consumer<WidgetRenderContext> defaultRender) {
         if (state instanceof WidgetState.Multiple(List<WidgetState> states)) {
             states.forEach(it -> renderState(it, renderContext, defaultRender));
-        } else if (state instanceof WidgetState.Textured(Identifier texture, Optional<RenderPipeline> pipeline)) {
-            renderContext.guiGraphics().blitSprite(pipeline.orElse(renderContext.pipeline()), texture, renderContext.x(), renderContext.y(), renderContext.width(), renderContext.height(), renderContext.color());
-        } else if (state instanceof WidgetState.Primitive(
-                PrimitiveFunction function, Optional<RenderPipeline> pipeline, Optional<Bounds> bounds
-        )) {
-            pipeline.ifPresentOrElse(renderContext::setPipeline, () -> renderContext.setPipeline(RenderPipelines.GUI));
-            bounds.ifPresent(renderContext::setBounds);
-            renderPrimitive(function, renderContext);
+        } else if (state instanceof WidgetState.Sprite(Identifier sprite, Optional<RenderPipeline> pipeline)) {
+            renderContext.guiGraphics().blitSprite(pipeline.orElse(renderContext.pipeline()), sprite, renderContext.x(), renderContext.y(), renderContext.width(), renderContext.height(), renderContext.color());
+        } else if (state instanceof WidgetState.Texture texture) {
+            renderTexture(texture, renderContext);
+        } else if (state instanceof WidgetState.Primitive primitive) {
+            renderPrimitive(primitive, renderContext);
         } else if (state instanceof WidgetState.Custom(WidgetState customState, Optional<Bounds> bounds)) {
             bounds.ifPresent(renderContext::setBounds);
             renderState(customState, renderContext, defaultRender);
@@ -41,8 +44,28 @@ public final class WidgetRenderer {
         }
     }
 
-    public static void renderPrimitive(final PrimitiveFunction function, final WidgetRenderContext renderContext) {
-        switch (function) {
+    public static void renderTexture(final WidgetState.Texture texture, final WidgetRenderContext renderContext) {
+        final UV uv = texture.uv().orElse(new UV(0.0F, 0.0F, 1.0F, 1.0F));
+        renderContext.guiGraphics().innerBlit(
+                texture.pipeline().orElse(renderContext.pipeline()),
+                texture.texture(),
+                renderContext.x(),
+                renderContext.x() + renderContext.width(),
+                renderContext.y(),
+                renderContext.y() + renderContext.height(),
+                uv.u0(),
+                uv.u1(),
+                uv.v0(),
+                uv.v1(),
+                ARGB.white(1.0F)
+        );
+
+    }
+
+    public static void renderPrimitive(final WidgetState.Primitive primitive, final WidgetRenderContext renderContext) {
+        primitive.pipeline().ifPresentOrElse(renderContext::setPipeline, () -> renderContext.setPipeline(RenderPipelines.GUI));
+        primitive.bounds().ifPresent(renderContext::setBounds);
+        switch (primitive.function()) {
             case Fill fill ->
                     renderContext.guiGraphics().fill(renderContext.pipeline(), renderContext.x(), renderContext.y(), renderContext.x() + renderContext.width(), renderContext.y() + renderContext.height(), fill.color());
             case FillGradient fillGradient ->
@@ -52,7 +75,7 @@ public final class WidgetRenderer {
             case OutlineGradient outlineGradient ->
                     outlineGradient(renderContext.guiGraphics(), renderContext.pipeline(), renderContext.x(), renderContext.y(), renderContext.width(), renderContext.height(), outlineGradient.startColor(), outlineGradient.endColor());
             case null, default ->
-                    throw new RuntimeException("TODO: Implement primitive rendering for type: " + function);
+                    throw new RuntimeException("TODO: Implement primitive rendering for type: " + primitive.function());
         }
     }
 

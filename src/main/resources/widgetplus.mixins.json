@@ -3,17 +3,17 @@
 	"package": "btw.lowercase.widgetplus.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"components.AbstractSliderButtonAccessor",
-      "components.MixinAbstractButton",
-      "components.MixinAbstractScrollArea",
-      "components.MixinAbstractSliderButton",
-      "components.MixinCheckbox",
 		"MixinClientBootstrap",
-      "components.MixinEditBox",
 		"MixinFramerateLimitTracker_UncapUIFPS",
 		"MixinMinecraft",
 		"MixinRenderPipeline$Builder",
-		"MixinRenderSystem"
+		"MixinRenderSystem",
+		"components.AbstractSliderButtonAccessor",
+		"components.MixinAbstractButton",
+		"components.MixinAbstractScrollArea",
+		"components.MixinAbstractSliderButton",
+		"components.MixinCheckbox",
+		"components.MixinEditBox"
 	],
 	"injectors": {
 		"defaultRequire": 1

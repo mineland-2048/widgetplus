@@ -2,6 +2,7 @@ package btw.lowercase.widgetplus.impl;
 
 import btw.lowercase.widgetplus.impl.entries.primitive.PrimitiveFunction;
 import btw.lowercase.widgetplus.impl.util.Bounds;
+import btw.lowercase.widgetplus.impl.util.UV;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.resources.Identifier;
 
@@ -12,7 +13,10 @@ public interface WidgetState {
     record Multiple(List<WidgetState> states) implements WidgetState {
     }
 
-    record Textured(Identifier texture, Optional<RenderPipeline> pipeline) implements WidgetState {
+    record Sprite(Identifier sprite, Optional<RenderPipeline> pipeline) implements WidgetState {
+    }
+
+    record Texture(Identifier texture, Optional<RenderPipeline> pipeline, Optional<UV> uv) implements WidgetState {
     }
 
     record Primitive(PrimitiveFunction function, Optional<RenderPipeline> pipeline,
