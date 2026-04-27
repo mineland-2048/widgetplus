@@ -8,6 +8,7 @@ import btw.lowercase.widgetplus.impl.util.Bounds;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 
@@ -27,16 +28,17 @@ public final class WidgetRenderer {
             }
         } else if (state instanceof WidgetState.Textured(Identifier texture, Optional<RenderPipeline> pipeline)) {
             renderContext.guiGraphicsExtractor.blitSprite(pipeline.orElse(renderContext.pipeline), texture, renderContext.x, renderContext.y, renderContext.width, renderContext.height, renderContext.color);
-        } else if (state instanceof WidgetState.Primitive(PrimitiveType function, Optional<Bounds> bounds)) {
-            final BlitRenderContext blitRenderContext = bounds.map(renderContext::withBounds).orElse(renderContext);
-            if (function instanceof Fill(int color)) {
-                renderContext.guiGraphicsExtractor.fill(blitRenderContext.x, blitRenderContext.y, blitRenderContext.x + blitRenderContext.width, blitRenderContext.y + blitRenderContext.height, color);
-            } else if (function instanceof FillGradient(int startColor, int endColor)) {
-                blitRenderContext.guiGraphicsExtractor.fillGradient(blitRenderContext.x, blitRenderContext.y, blitRenderContext.x + blitRenderContext.width, blitRenderContext.y + blitRenderContext.height, startColor, endColor);
-            } else if (function instanceof Outline(int color)) {
-                blitRenderContext.guiGraphicsExtractor.outline(blitRenderContext.x, blitRenderContext.y, blitRenderContext.width, blitRenderContext.height, color);
-            } else if (function instanceof OutlineGradient(int startColor, int endColor)) {
-                outlineGradient(blitRenderContext.guiGraphicsExtractor, blitRenderContext.x, blitRenderContext.y, blitRenderContext.width, blitRenderContext.height, startColor, endColor);
+        } else if (state instanceof WidgetState.Primitive(PrimitiveType function, Optional<RenderPipeline> pipeline1, Optional<Bounds> bounds1)) {
+            BlitRenderContext blitRenderContext = bounds1.map(renderContext::withBounds).orElse(renderContext);
+            blitRenderContext = pipeline1.map(renderContext::withPipeline).orElse(blitRenderContext);
+            if (function instanceof Fill fill) {
+                renderContext.guiGraphicsExtractor.fill(blitRenderContext.pipeline, blitRenderContext.x, blitRenderContext.y, blitRenderContext.x + blitRenderContext.width, blitRenderContext.y + blitRenderContext.height, fill.color());
+            } else if (function instanceof FillGradient fillGradient) {
+                blitRenderContext.guiGraphicsExtractor.innerFill(blitRenderContext.pipeline, TextureSetup.noTexture(), blitRenderContext.x, blitRenderContext.y, blitRenderContext.x + blitRenderContext.width, blitRenderContext.y + blitRenderContext.height, fillGradient.startColor(), fillGradient.endColor());
+            } else if (function instanceof Outline outline) {
+                outline(blitRenderContext.guiGraphicsExtractor, blitRenderContext.pipeline, blitRenderContext.x, blitRenderContext.y, blitRenderContext.width, blitRenderContext.height, outline.color());
+            } else if (function instanceof OutlineGradient outlineGradient) {
+                outlineGradient(blitRenderContext.guiGraphicsExtractor, blitRenderContext.pipeline, blitRenderContext.x, blitRenderContext.y, blitRenderContext.width, blitRenderContext.height, outlineGradient.startColor(), outlineGradient.endColor());
             }
         } else if (state instanceof WidgetState.Custom(WidgetState customState, Optional<Bounds> bounds)) {
             render(customState, bounds.map(renderContext::withBounds).orElse(renderContext), defaultRender);
@@ -45,12 +47,18 @@ public final class WidgetRenderer {
         }
     }
 
-    // TODO: Check if accurate
-    private static void outlineGradient(final GuiGraphicsExtractor guiGraphicsExtractor, final int x, final int y, final int width, final int height, final int startColor, final int endColor) {
-        guiGraphicsExtractor.fillGradient(x, y, x + width, y + 1, startColor, endColor);
-        guiGraphicsExtractor.fillGradient(x, y + height - 1, x + width, y + height, startColor, endColor);
-        guiGraphicsExtractor.fillGradient(x, y + 1, x + 1, y + height - 1, startColor, endColor);
-        guiGraphicsExtractor.fillGradient(x + width - 1, y + 1, x + width, y + height - 1, startColor, endColor);
+    private static void outline(final GuiGraphicsExtractor guiGraphicsExtractor, final RenderPipeline pipeline, final int x, final int y, final int width, final int height, final int color) {
+        guiGraphicsExtractor.fill(pipeline, x, y, x + width, y + 1, color);
+        guiGraphicsExtractor.fill(pipeline, x, y + height - 1, x + width, y + height, color);
+        guiGraphicsExtractor.fill(pipeline, x, y + 1, x + 1, y + height - 1, color);
+        guiGraphicsExtractor.fill(pipeline, x + width - 1, y + 1, x + width, y + height - 1, color);
+    }
+
+    private static void outlineGradient(final GuiGraphicsExtractor guiGraphicsExtractor, final RenderPipeline pipeline, final int x, final int y, final int width, final int height, final int startColor, final int endColor) {
+        guiGraphicsExtractor.innerFill(pipeline, TextureSetup.noTexture(), x, y, x + width, y + 1, startColor, endColor);
+        guiGraphicsExtractor.innerFill(pipeline, TextureSetup.noTexture(), x, y + height - 1, x + width, y + height, startColor, endColor);
+        guiGraphicsExtractor.innerFill(pipeline, TextureSetup.noTexture(), x, y + 1, x + 1, y + height - 1, startColor, endColor);
+        guiGraphicsExtractor.innerFill(pipeline, TextureSetup.noTexture(), x + width - 1, y + 1, x + width, y + height - 1, startColor, endColor);
     }
 
     public record BlitRenderContext(GuiGraphicsExtractor guiGraphicsExtractor,

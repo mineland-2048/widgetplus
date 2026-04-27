@@ -10,6 +10,8 @@ loom {
     runs {
         runConfigs.remove(runConfigs["server"])
     }
+
+    accessWidenerPath = file("src/main/resources/widgetplus.accesswidener")
 }
 
 repositories {

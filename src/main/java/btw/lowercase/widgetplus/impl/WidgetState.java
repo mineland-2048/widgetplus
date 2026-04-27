@@ -15,7 +15,8 @@ public interface WidgetState {
     record Textured(Identifier texture, Optional<RenderPipeline> pipeline) implements WidgetState {
     }
 
-    record Primitive(PrimitiveType function, Optional<Bounds> bounds) implements WidgetState {
+    record Primitive(PrimitiveType function, Optional<RenderPipeline> pipeline,
+                     Optional<Bounds> bounds) implements WidgetState {
     }
 
     record Custom(WidgetState state, Optional<Bounds> bounds) implements WidgetState {

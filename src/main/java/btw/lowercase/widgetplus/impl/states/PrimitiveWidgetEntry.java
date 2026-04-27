@@ -1,19 +1,22 @@
 package btw.lowercase.widgetplus.impl.states;
 
 import btw.lowercase.widgetplus.impl.WidgetState;
-import btw.lowercase.widgetplus.impl.states.primitive.PrimitiveType;
-import btw.lowercase.widgetplus.impl.states.primitive.PrimitiveTypes;
+import btw.lowercase.widgetplus.impl.states.primitive.*;
 import btw.lowercase.widgetplus.impl.util.Bounds;
+import btw.lowercase.widgetplus.impl.util.GuiPipelineOverrides;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.renderer.RenderPipelines;
 
 import java.util.Optional;
 
-public record PrimitiveWidgetEntry(PrimitiveType function, Optional<Bounds> bounds) implements WidgetEntry {
+public record PrimitiveWidgetEntry(PrimitiveType function, Optional<RenderPipeline> pipeline,
+                                   Optional<Bounds> bounds) implements WidgetEntry {
     @Override
     public WidgetState resolve(final AbstractWidget widget) {
-        return new WidgetState.Primitive(this.function, this.bounds);
+        return new WidgetState.Primitive(this.function, this.pipeline, this.bounds);
     }
 
     public record Unbaked(PrimitiveType function, Optional<Bounds> bounds) implements WidgetEntry.Unbaked {
@@ -29,7 +32,26 @@ public record PrimitiveWidgetEntry(PrimitiveType function, Optional<Bounds> boun
 
         @Override
         public WidgetEntry bake() {
-            return new PrimitiveWidgetEntry(this.function, this.bounds);
+            Optional<GuiPipelineOverrides> pipelineOverrides = Optional.empty();
+            if (this.function instanceof Fill fill) {
+                pipelineOverrides = fill.pipelineOverrides();
+            } else if (this.function instanceof FillGradient fillGradient) {
+                pipelineOverrides = fillGradient.pipelineOverrides();
+            } else if (this.function instanceof Outline outline) {
+                pipelineOverrides = outline.pipelineOverrides();
+            } else if (this.function instanceof OutlineGradient outlineGradient) {
+                pipelineOverrides = outlineGradient.pipelineOverrides();
+            }
+
+            RenderPipeline pipeline = null;
+            if (pipelineOverrides.isPresent()) {
+                final RenderPipeline.Builder builder = RenderPipeline.builder(RenderPipelines.GUI_SNIPPET);
+                builder.withLocation("pipeline/dynamic_widget_" + this.function.hashCode());
+                pipelineOverrides.ifPresent(overrides -> overrides.apply(builder));
+                pipeline = builder.build();
+            }
+
+            return new PrimitiveWidgetEntry(this.function, Optional.ofNullable(pipeline), this.bounds);
         }
     }
 }
