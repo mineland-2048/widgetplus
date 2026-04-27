@@ -1,7 +1,7 @@
 package btw.lowercase.widgetplus;
 
-import btw.lowercase.widgetplus.impl.management.WidgetPlusDynamicUniforms;
 import btw.lowercase.widgetplus.impl.management.WidgetManager;
+import btw.lowercase.widgetplus.impl.management.WidgetPlusDynamicUniforms;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;

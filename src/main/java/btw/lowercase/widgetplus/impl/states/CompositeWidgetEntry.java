@@ -22,10 +22,9 @@ public record CompositeWidgetEntry(List<WidgetEntry> widgets) implements WidgetE
     }
 
     public record Unbaked(List<WidgetEntry.Unbaked> widgets) implements WidgetEntry.Unbaked {
-        public static final MapCodec<Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
-                instance -> instance.group(
-                        WidgetEntries.CODEC.listOf().fieldOf("widgets").forGetter(Unbaked::widgets)
-                ).apply(instance, Unbaked::new));
+        public static final MapCodec<Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                WidgetEntries.CODEC.listOf().fieldOf("widgets").forGetter(Unbaked::widgets)
+        ).apply(instance, Unbaked::new));
 
         @Override
         public MapCodec<? extends Unbaked> type() {
