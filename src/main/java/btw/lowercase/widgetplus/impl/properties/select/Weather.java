@@ -1,9 +1,9 @@
 package btw.lowercase.widgetplus.impl.properties.select;
 
-import btw.lowercase.widgetplus.impl.property.SelectWidgetProperty;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.NonNull;
@@ -15,7 +15,7 @@ public record Weather() implements SelectWidgetProperty<Weather.Type> {
     );
 
     @Override
-    public @Nullable Type get() {
+    public @Nullable Type get(final AbstractWidget widget) {
         final Level level = Minecraft.getInstance().level;
         if (level != null) {
             if (!level.isRaining() && !level.isThundering()) {

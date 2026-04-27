@@ -1,6 +1,5 @@
 package btw.lowercase.widgetplus.impl.properties.range_dispatch;
 
-import btw.lowercase.widgetplus.impl.property.RangeDispatchWidgetProperty;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.Minecraft;

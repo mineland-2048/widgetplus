@@ -1,4 +1,4 @@
-package btw.lowercase.widgetplus.impl.property;
+package btw.lowercase.widgetplus.impl.properties.select;
 
 import btw.lowercase.widgetplus.impl.states.SelectWidgetEntry;
 import com.google.common.collect.HashMultiset;
@@ -7,6 +7,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.client.gui.components.AbstractWidget;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public interface SelectWidgetProperty<T> {
-    @Nullable T get();
+    @Nullable T get(final AbstractWidget widget);
 
     Codec<T> valueCodec();
 

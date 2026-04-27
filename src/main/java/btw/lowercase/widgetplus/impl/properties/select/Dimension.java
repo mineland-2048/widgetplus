@@ -1,9 +1,9 @@
 package btw.lowercase.widgetplus.impl.properties.select;
 
-import btw.lowercase.widgetplus.impl.property.SelectWidgetProperty;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
@@ -15,7 +15,7 @@ public record Dimension() implements SelectWidgetProperty<ResourceKey<Level>> {
     );
 
     @Override
-    public @Nullable ResourceKey<Level> get() {
+    public @Nullable ResourceKey<Level> get(final AbstractWidget widget) {
         final Level level = Minecraft.getInstance().level;
         if (level != null) {
             return level.dimension();

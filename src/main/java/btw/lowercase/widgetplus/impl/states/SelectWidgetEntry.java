@@ -3,7 +3,7 @@ package btw.lowercase.widgetplus.impl.states;
 import btw.lowercase.widgetplus.impl.WidgetEntries;
 import btw.lowercase.widgetplus.impl.WidgetState;
 import btw.lowercase.widgetplus.impl.properties.SelectWidgetProperties;
-import btw.lowercase.widgetplus.impl.property.SelectWidgetProperty;
+import btw.lowercase.widgetplus.impl.properties.select.SelectWidgetProperty;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
@@ -20,7 +20,7 @@ import java.util.List;
 public record SelectWidgetEntry<T>(SelectWidgetProperty<T> property, EntrySelector<T> selector) implements WidgetEntry {
     @Override
     public @Nullable WidgetState resolve(final AbstractWidget widget) {
-        final T value = this.property.get();
+        final T value = this.property.get(widget);
         return this.selector.get(value).resolve(widget);
     }
 

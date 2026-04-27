@@ -2,7 +2,7 @@ package btw.lowercase.widgetplus.impl.properties;
 
 import btw.lowercase.widgetplus.WidgetPlus;
 import btw.lowercase.widgetplus.impl.properties.conditional.*;
-import btw.lowercase.widgetplus.impl.property.ConditionalWidgetProperty;
+import btw.lowercase.widgetplus.impl.properties.conditional.ConditionalWidgetProperty;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ExtraCodecs;

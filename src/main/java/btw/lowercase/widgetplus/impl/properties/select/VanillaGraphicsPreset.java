@@ -1,10 +1,10 @@
 package btw.lowercase.widgetplus.impl.properties.select;
 
-import btw.lowercase.widgetplus.impl.property.SelectWidgetProperty;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.GraphicsPreset;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractWidget;
 import org.jspecify.annotations.NonNull;
 
 public record VanillaGraphicsPreset() implements SelectWidgetProperty<GraphicsPreset> {
@@ -13,7 +13,7 @@ public record VanillaGraphicsPreset() implements SelectWidgetProperty<GraphicsPr
     );
 
     @Override
-    public @NonNull GraphicsPreset get() {
+    public @NonNull GraphicsPreset get(final AbstractWidget widget) {
         return Minecraft.getInstance().options.graphicsPreset().get();
     }
 

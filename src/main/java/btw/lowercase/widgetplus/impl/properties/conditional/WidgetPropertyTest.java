@@ -1,4 +1,4 @@
-package btw.lowercase.widgetplus.impl.property;
+package btw.lowercase.widgetplus.impl.properties.conditional;
 
 import net.minecraft.client.gui.components.AbstractWidget;
 

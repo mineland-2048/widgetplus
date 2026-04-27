@@ -1,6 +1,5 @@
 package btw.lowercase.widgetplus.impl.properties.conditional;
 
-import btw.lowercase.widgetplus.impl.property.ConditionalWidgetProperty;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;

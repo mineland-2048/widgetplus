@@ -3,7 +3,7 @@ package btw.lowercase.widgetplus.impl.states;
 import btw.lowercase.widgetplus.impl.WidgetEntries;
 import btw.lowercase.widgetplus.impl.WidgetState;
 import btw.lowercase.widgetplus.impl.properties.RangeDispatchWidgetProperties;
-import btw.lowercase.widgetplus.impl.property.RangeDispatchWidgetProperty;
+import btw.lowercase.widgetplus.impl.properties.range_dispatch.RangeDispatchWidgetProperty;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
