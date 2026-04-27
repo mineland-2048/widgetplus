@@ -14,23 +14,17 @@ import java.util.Optional;
 
 public final class WidgetRenderer {
     public static void render(final WidgetDefinition.Type type, final AbstractWidget widget, final BlitRenderContext renderContext, final Runnable defaultRender) {
-        final WidgetState state = WidgetPlus.getWidgetManager().getState(type, widget);
+        render(WidgetPlus.getWidgetManager().getState(type, widget), renderContext, defaultRender);
+    }
+
+    public static void render(final WidgetState state, final BlitRenderContext renderContext, final Runnable defaultRender) {
         if (state instanceof WidgetState.Multiple(List<WidgetState> states)) {
             for (final WidgetState innerState : states) {
                 render(innerState, renderContext, defaultRender);
             }
-        } else {
-            render(state, renderContext, defaultRender);
-        }
-    }
-
-    public static void render(final WidgetState state, final BlitRenderContext renderContext, final Runnable defaultRender) {
-        if (state instanceof WidgetState.Textured(Identifier texture, Optional<RenderPipeline> pipeline)) {
+        } else if (state instanceof WidgetState.Textured(Identifier texture, Optional<RenderPipeline> pipeline)) {
             renderContext.guiGraphicsExtractor.blitSprite(pipeline.orElse(renderContext.pipeline), texture, renderContext.x, renderContext.y, renderContext.width, renderContext.height, renderContext.color);
-            return;
-        }
-
-        if (state instanceof WidgetState.Default) {
+        } else if (state instanceof WidgetState.Default) {
             defaultRender.run();
         }
     }
