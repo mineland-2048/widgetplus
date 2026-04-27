@@ -28,7 +28,7 @@ public abstract class MixinAbstractButton extends AbstractWidget.WithInactiveMes
         final WidgetRenderContext blitRenderContext = WidgetRenderContext.of(instance, renderPipeline, location, x, y, width, height, color);
         final Consumer<WidgetRenderContext> defaultRender = (renderContext) -> original.call(renderContext.guiGraphics(), renderContext.pipeline(), renderContext.location(), renderContext.x(), renderContext.y(), renderContext.width(), renderContext.height(), renderContext.color());
         if (WidgetPlusConfig.instance().enabled) {
-            WidgetRenderer.render(WidgetDefinition.Type.BUTTON, this, blitRenderContext, defaultRender);
+            WidgetRenderer.renderDefinition(WidgetDefinition.Type.BUTTON, this, blitRenderContext, defaultRender);
         } else {
             defaultRender.accept(blitRenderContext);
         }

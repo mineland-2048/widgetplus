@@ -17,14 +17,14 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public final class WidgetRenderer {
-    public static void render(final WidgetDefinition.Type type, final AbstractWidget widget, final WidgetRenderContext renderContext, final Consumer<WidgetRenderContext> defaultRender) {
-        render(WidgetPlus.getWidgetManager().getState(type, widget), renderContext, defaultRender);
+    public static void renderDefinition(final WidgetDefinition.Type type, final AbstractWidget widget, final WidgetRenderContext renderContext, final Consumer<WidgetRenderContext> defaultRender) {
+        renderState(WidgetPlus.getWidgetManager().getState(type, widget), renderContext, defaultRender);
     }
 
-    public static void render(final WidgetState state, final WidgetRenderContext renderContext, final Consumer<WidgetRenderContext> defaultRender) {
+    public static void renderState(final WidgetState state, final WidgetRenderContext renderContext, final Consumer<WidgetRenderContext> defaultRender) {
         if (state instanceof WidgetState.Multiple(List<WidgetState> states)) {
             for (final WidgetState innerState : states) {
-                render(innerState, renderContext, defaultRender);
+                renderState(innerState, renderContext, defaultRender);
             }
         } else if (state instanceof WidgetState.Textured(Identifier texture, Optional<RenderPipeline> pipeline)) {
             renderContext.guiGraphics().blitSprite(pipeline.orElse(renderContext.pipeline()), texture, renderContext.x(), renderContext.y(), renderContext.width(), renderContext.height(), renderContext.color());
@@ -34,14 +34,14 @@ public final class WidgetRenderer {
             renderPrimitive(function, renderContext);
         } else if (state instanceof WidgetState.Custom(WidgetState customState, Optional<Bounds> bounds)) {
             bounds.ifPresent(renderContext::setBounds);
-            render(customState, renderContext, defaultRender);
+            renderState(customState, renderContext, defaultRender);
         } else if (state instanceof WidgetState.Default(Optional<RenderPipeline> pipeline)) {
             pipeline.ifPresent(renderContext::setPipeline);
             defaultRender.accept(renderContext);
         }
     }
 
-    private static void renderPrimitive(final PrimitiveType function, final WidgetRenderContext renderContext) {
+    public static void renderPrimitive(final PrimitiveType function, final WidgetRenderContext renderContext) {
         if (function instanceof Fill fill) {
             renderContext.guiGraphics().fill(renderContext.pipeline(), renderContext.x(), renderContext.y(), renderContext.x() + renderContext.width(), renderContext.y() + renderContext.height(), fill.color());
         } else if (function instanceof FillGradient fillGradient) {

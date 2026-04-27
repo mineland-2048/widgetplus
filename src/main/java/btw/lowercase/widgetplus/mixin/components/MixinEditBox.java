@@ -28,7 +28,7 @@ public abstract class MixinEditBox extends AbstractWidget {
         final WidgetRenderContext blitRenderContext = WidgetRenderContext.of(instance, renderPipeline, location, x, y, width, height);
         final Consumer<WidgetRenderContext> defaultRender = (renderContext) -> original.call(renderContext.guiGraphics(), renderContext.pipeline(), renderContext.location(), renderContext.x(), renderContext.y(), renderContext.width(), renderContext.height());
         if (WidgetPlusConfig.instance().enabled) {
-            WidgetRenderer.render(WidgetDefinition.Type.EDIT_BOX, this, blitRenderContext, defaultRender);
+            WidgetRenderer.renderDefinition(WidgetDefinition.Type.EDIT_BOX, this, blitRenderContext, defaultRender);
         } else {
             defaultRender.accept(blitRenderContext);
         }

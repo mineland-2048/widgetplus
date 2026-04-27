@@ -28,7 +28,7 @@ public abstract class MixinCheckbox extends AbstractButton {
         final WidgetRenderContext blitRenderContext = WidgetRenderContext.of(instance, renderPipeline, location, x, y, width, height, color);
         final Consumer<WidgetRenderContext> defaultRender = (renderContext) -> original.call(renderContext.guiGraphics(), renderContext.pipeline(), renderContext.location(), renderContext.x(), renderContext.y(), renderContext.width(), renderContext.height(), renderContext.color());
         if (WidgetPlusConfig.instance().enabled) {
-            WidgetRenderer.render(WidgetDefinition.Type.CHECKBOX, this, blitRenderContext, defaultRender);
+            WidgetRenderer.renderDefinition(WidgetDefinition.Type.CHECKBOX, this, blitRenderContext, defaultRender);
         } else {
             defaultRender.accept(blitRenderContext);
         }
