@@ -16,11 +16,11 @@ public abstract class MixinMinecraft implements ScreenTime {
 
     @Inject(method = "setScreen", at = @At("HEAD"))
     private void widgetplus$updateTimestamp(final Screen screen, final CallbackInfo ci) {
-        this.widgetplus$openScreenTimestamp = System.currentTimeMillis();
+        this.widgetplus$openScreenTimestamp = screen != null ? System.currentTimeMillis() : 0;
     }
 
     @Override
     public int widgetplus$getElapsedOpenScreenTime() {
-        return Math.toIntExact(System.currentTimeMillis() - this.widgetplus$openScreenTimestamp);
+        return this.widgetplus$openScreenTimestamp != 0 ? Math.toIntExact(System.currentTimeMillis() - this.widgetplus$openScreenTimestamp) : 0;
     }
 }
