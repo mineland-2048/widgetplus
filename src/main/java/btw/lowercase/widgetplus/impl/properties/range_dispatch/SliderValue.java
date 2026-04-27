@@ -1,6 +1,6 @@
 package btw.lowercase.widgetplus.impl.properties.range_dispatch;
 
-import btw.lowercase.widgetplus.mixin.AbstractSliderButtonAccessor;
+import btw.lowercase.widgetplus.mixin.components.AbstractSliderButtonAccessor;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.AbstractWidget;

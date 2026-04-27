@@ -1,4 +1,4 @@
-package btw.lowercase.widgetplus.mixin;
+package btw.lowercase.widgetplus.mixin.components;
 
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import org.spongepowered.asm.mixin.Mixin;

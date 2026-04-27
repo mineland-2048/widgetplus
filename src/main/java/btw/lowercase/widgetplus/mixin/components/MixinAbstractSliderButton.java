@@ -1,4 +1,4 @@
-package btw.lowercase.widgetplus.mixin;
+package btw.lowercase.widgetplus.mixin.components;
 
 import btw.lowercase.widgetplus.WidgetPlus;
 import btw.lowercase.widgetplus.config.WidgetPlusConfig;
