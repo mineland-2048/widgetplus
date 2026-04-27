@@ -1,5 +1,6 @@
 package btw.lowercase.widgetplus.impl;
 
+import btw.lowercase.widgetplus.impl.states.CustomWidgetEntry;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.resources.Identifier;
 
@@ -11,6 +12,9 @@ public interface WidgetState {
     }
 
     record Multiple(List<WidgetState> states) implements WidgetState {
+    }
+
+    record Custom(WidgetState state, Optional<CustomWidgetEntry.Bounds> bounds) implements WidgetState {
     }
 
     record Empty() implements WidgetState {

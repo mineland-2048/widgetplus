@@ -3,6 +3,7 @@ package btw.lowercase.widgetplus.impl.management;
 import btw.lowercase.widgetplus.WidgetPlus;
 import btw.lowercase.widgetplus.impl.WidgetDefinition;
 import btw.lowercase.widgetplus.impl.WidgetState;
+import btw.lowercase.widgetplus.impl.states.CustomWidgetEntry;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -25,6 +26,8 @@ public final class WidgetRenderer {
             }
         } else if (state instanceof WidgetState.Textured(Identifier texture, Optional<RenderPipeline> pipeline)) {
             renderContext.guiGraphicsExtractor.blitSprite(pipeline.orElse(renderContext.pipeline), texture, renderContext.x, renderContext.y, renderContext.width, renderContext.height, renderContext.color);
+        } else if (state instanceof WidgetState.Custom(WidgetState customState, Optional<CustomWidgetEntry.Bounds> bounds)) {
+            render(customState, bounds.map(renderContext::withBounds).orElse(renderContext), defaultRender);
         } else if (state instanceof WidgetState.Default(Optional<RenderPipeline> pipeline)) {
             defaultRender.accept(pipeline.map(renderContext::withPipeline).orElse(renderContext));
         }
@@ -50,6 +53,18 @@ public final class WidgetRenderer {
 
         public BlitRenderContext withPipeline(final RenderPipeline pipeline) {
             return new BlitRenderContext(this.guiGraphicsExtractor, pipeline, this.location, this.x, this.y, this.width, this.height);
+        }
+
+        public BlitRenderContext withBounds(final CustomWidgetEntry.Bounds bounds) {
+            return new BlitRenderContext(
+                    this.guiGraphicsExtractor,
+                    this.pipeline,
+                    this.location,
+                    bounds.x().orElse(this.x),
+                    bounds.y().orElse(this.y),
+                    bounds.width().orElse(this.width),
+                    bounds.height().orElse(this.height)
+            );
         }
     }
 }
