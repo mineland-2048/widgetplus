@@ -1,4 +1,4 @@
-package btw.lowercase.widgetplus.impl.states;
+package btw.lowercase.widgetplus.impl.entries;
 
 import btw.lowercase.widgetplus.impl.WidgetEntries;
 import btw.lowercase.widgetplus.impl.WidgetState;

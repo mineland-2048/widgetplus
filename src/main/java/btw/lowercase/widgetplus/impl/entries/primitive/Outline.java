@@ -1,4 +1,4 @@
-package btw.lowercase.widgetplus.impl.states.primitive;
+package btw.lowercase.widgetplus.impl.entries.primitive;
 
 import btw.lowercase.widgetplus.impl.util.GuiPipelineOverrides;
 import com.mojang.serialization.MapCodec;

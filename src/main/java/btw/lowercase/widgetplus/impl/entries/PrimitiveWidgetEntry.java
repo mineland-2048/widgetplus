@@ -1,7 +1,7 @@
-package btw.lowercase.widgetplus.impl.states;
+package btw.lowercase.widgetplus.impl.entries;
 
 import btw.lowercase.widgetplus.impl.WidgetState;
-import btw.lowercase.widgetplus.impl.states.primitive.*;
+import btw.lowercase.widgetplus.impl.entries.primitive.*;
 import btw.lowercase.widgetplus.impl.util.Bounds;
 import btw.lowercase.widgetplus.impl.util.GuiPipelineOverrides;
 import com.mojang.blaze3d.pipeline.RenderPipeline;

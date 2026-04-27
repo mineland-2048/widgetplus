@@ -1,6 +1,6 @@
 package btw.lowercase.widgetplus.impl;
 
-import btw.lowercase.widgetplus.impl.states.primitive.PrimitiveFunction;
+import btw.lowercase.widgetplus.impl.entries.primitive.PrimitiveFunction;
 import btw.lowercase.widgetplus.impl.util.Bounds;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.minecraft.resources.Identifier;
@@ -20,6 +20,10 @@ public interface WidgetState {
     }
 
     record Custom(WidgetState state, Optional<Bounds> bounds) implements WidgetState {
+    }
+
+    // TODO: Implement usage
+    record Reference(Identifier id) implements WidgetState {
     }
 
     record Empty() implements WidgetState {

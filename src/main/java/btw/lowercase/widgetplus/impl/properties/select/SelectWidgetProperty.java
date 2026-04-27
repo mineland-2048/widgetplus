@@ -1,6 +1,6 @@
 package btw.lowercase.widgetplus.impl.properties.select;
 
-import btw.lowercase.widgetplus.impl.states.SelectWidgetEntry;
+import btw.lowercase.widgetplus.impl.entries.SelectWidgetEntry;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import com.mojang.serialization.Codec;

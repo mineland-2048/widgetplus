@@ -1,6 +1,6 @@
 package btw.lowercase.widgetplus.impl;
 
-import btw.lowercase.widgetplus.impl.states.WidgetEntry;
+import btw.lowercase.widgetplus.impl.entries.WidgetEntry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

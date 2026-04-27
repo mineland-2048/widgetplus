@@ -3,7 +3,7 @@ package btw.lowercase.widgetplus.impl.management;
 import btw.lowercase.widgetplus.WidgetPlus;
 import btw.lowercase.widgetplus.impl.WidgetDefinition;
 import btw.lowercase.widgetplus.impl.WidgetState;
-import btw.lowercase.widgetplus.impl.states.WidgetEntry;
+import btw.lowercase.widgetplus.impl.entries.WidgetEntry;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;

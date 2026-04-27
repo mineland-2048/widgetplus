@@ -1,4 +1,4 @@
-package btw.lowercase.widgetplus.impl.states.primitive;
+package btw.lowercase.widgetplus.impl.entries.primitive;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
