@@ -12,14 +12,14 @@ import net.minecraft.client.renderer.RenderPipelines;
 
 import java.util.Optional;
 
-public record PrimitiveWidgetEntry(PrimitiveType function, Optional<RenderPipeline> pipeline,
+public record PrimitiveWidgetEntry(PrimitiveFunction function, Optional<RenderPipeline> pipeline,
                                    Optional<Bounds> bounds) implements WidgetEntry {
     @Override
     public WidgetState resolve(final AbstractWidget widget) {
         return new WidgetState.Primitive(this.function, this.pipeline, this.bounds);
     }
 
-    public record Unbaked(PrimitiveType function, Optional<Bounds> bounds) implements WidgetEntry.Unbaked {
+    public record Unbaked(PrimitiveFunction function, Optional<Bounds> bounds) implements WidgetEntry.Unbaked {
         public static final MapCodec<Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 PrimitiveTypes.CODEC.fieldOf("function").forGetter(Unbaked::function),
                 Bounds.CODEC.optionalFieldOf("bounds").forGetter(Unbaked::bounds)
@@ -45,7 +45,7 @@ public record PrimitiveWidgetEntry(PrimitiveType function, Optional<RenderPipeli
             return new PrimitiveWidgetEntry(this.function, Optional.ofNullable(pipeline), this.bounds);
         }
 
-        private Optional<GuiPipelineOverrides> extractPipelineOverrides(final PrimitiveType primitiveType) {
+        private Optional<GuiPipelineOverrides> extractPipelineOverrides(final PrimitiveFunction primitiveType) {
             Optional<GuiPipelineOverrides> pipelineOverrides = Optional.empty();
             if (primitiveType instanceof Fill fill) {
                 pipelineOverrides = fill.pipelineOverrides();

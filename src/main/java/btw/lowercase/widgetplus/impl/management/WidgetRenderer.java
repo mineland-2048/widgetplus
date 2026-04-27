@@ -27,7 +27,7 @@ public final class WidgetRenderer {
         } else if (state instanceof WidgetState.Textured(Identifier texture, Optional<RenderPipeline> pipeline)) {
             renderContext.guiGraphics().blitSprite(pipeline.orElse(renderContext.pipeline()), texture, renderContext.x(), renderContext.y(), renderContext.width(), renderContext.height(), renderContext.color());
         } else if (state instanceof WidgetState.Primitive(
-                PrimitiveType function, Optional<RenderPipeline> pipeline, Optional<Bounds> bounds
+                PrimitiveFunction function, Optional<RenderPipeline> pipeline, Optional<Bounds> bounds
         )) {
             pipeline.ifPresentOrElse(renderContext::setPipeline, () -> renderContext.setPipeline(RenderPipelines.GUI));
             bounds.ifPresent(renderContext::setBounds);
@@ -41,7 +41,7 @@ public final class WidgetRenderer {
         }
     }
 
-    public static void renderPrimitive(final PrimitiveType function, final WidgetRenderContext renderContext) {
+    public static void renderPrimitive(final PrimitiveFunction function, final WidgetRenderContext renderContext) {
         switch (function) {
             case Fill fill ->
                     renderContext.guiGraphics().fill(renderContext.pipeline(), renderContext.x(), renderContext.y(), renderContext.x() + renderContext.width(), renderContext.y() + renderContext.height(), fill.color());

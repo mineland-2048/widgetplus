@@ -5,8 +5,8 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.util.ExtraCodecs;
 
 public class PrimitiveTypes {
-    private static final ExtraCodecs.LateBoundIdMapper<String, MapCodec<? extends PrimitiveType>> ID_MAPPER = new ExtraCodecs.LateBoundIdMapper<>();
-    public static final Codec<PrimitiveType> CODEC = ID_MAPPER.codec(Codec.STRING).dispatch(PrimitiveType::type, c -> c);
+    private static final ExtraCodecs.LateBoundIdMapper<String, MapCodec<? extends PrimitiveFunction>> ID_MAPPER = new ExtraCodecs.LateBoundIdMapper<>();
+    public static final Codec<PrimitiveFunction> CODEC = ID_MAPPER.codec(Codec.STRING).dispatch(PrimitiveFunction::type, c -> c);
 
     public static void bootstrap() {
         ID_MAPPER.put("fill", Fill.MAP_CODEC);

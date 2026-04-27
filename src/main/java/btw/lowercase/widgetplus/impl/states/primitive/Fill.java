@@ -7,14 +7,14 @@ import net.minecraft.util.ExtraCodecs;
 
 import java.util.Optional;
 
-public record Fill(int color, Optional<GuiPipelineOverrides> pipelineOverrides) implements PrimitiveType {
+public record Fill(int color, Optional<GuiPipelineOverrides> pipelineOverrides) implements PrimitiveFunction {
     public static final MapCodec<Fill> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             ExtraCodecs.STRING_ARGB_COLOR.fieldOf("color").forGetter(Fill::color),
             GuiPipelineOverrides.CODEC.optionalFieldOf("pipeline_overrides").forGetter(Fill::pipelineOverrides)
     ).apply(instance, Fill::new));
 
     @Override
-    public MapCodec<? extends PrimitiveType> type() {
+    public MapCodec<? extends PrimitiveFunction> type() {
         return MAP_CODEC;
     }
 }
