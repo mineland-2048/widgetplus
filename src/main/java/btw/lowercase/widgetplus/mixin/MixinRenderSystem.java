@@ -3,7 +3,7 @@ package btw.lowercase.widgetplus.mixin;
 import btw.lowercase.widgetplus.WidgetPlus;
 import btw.lowercase.widgetplus.config.WidgetPlusConfig;
 import btw.lowercase.widgetplus.impl.management.WidgetPlusDynamicUniforms;
-import btw.lowercase.widgetplus.impl.util.ScreenTime;
+import btw.lowercase.widgetplus.impl.util.ElapsedTimes;
 import com.mojang.blaze3d.TracyFrameCapture;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import com.mojang.blaze3d.systems.GpuDevice;
@@ -45,15 +45,11 @@ public abstract class MixinRenderSystem {
             final double mouseX = minecraft.mouseHandler.xpos();
             final double mouseY = minecraft.mouseHandler.ypos();
 
-            int elapsedOpenScreenTime = 0;
-            if (minecraft.screen != null) {
-                elapsedOpenScreenTime = ((ScreenTime) minecraft).widgetplus$getElapsedOpenScreenTime();
-            }
-
+            final ElapsedTimes elapsedTimes = ((ElapsedTimes) minecraft);
             widgetplus$dynamicUniforms = dynamicUniforms.write(
                     new Vector2d(mouseX, mouseY),
-                    0, // TODO
-                    elapsedOpenScreenTime
+                    elapsedTimes.widgetplus$getElapsedPauseTime(),
+                    elapsedTimes.widgetplus$getElapsedOpenScreenTime()
             );
         }
     }
