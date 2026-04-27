@@ -32,16 +32,7 @@ public record PrimitiveWidgetEntry(PrimitiveType function, Optional<RenderPipeli
 
         @Override
         public WidgetEntry bake() {
-            Optional<GuiPipelineOverrides> pipelineOverrides = Optional.empty();
-            if (this.function instanceof Fill fill) {
-                pipelineOverrides = fill.pipelineOverrides();
-            } else if (this.function instanceof FillGradient fillGradient) {
-                pipelineOverrides = fillGradient.pipelineOverrides();
-            } else if (this.function instanceof Outline outline) {
-                pipelineOverrides = outline.pipelineOverrides();
-            } else if (this.function instanceof OutlineGradient outlineGradient) {
-                pipelineOverrides = outlineGradient.pipelineOverrides();
-            }
+            final Optional<GuiPipelineOverrides> pipelineOverrides = extractPipelineOverrides(this.function);
 
             RenderPipeline pipeline = null;
             if (pipelineOverrides.isPresent()) {
@@ -52,6 +43,21 @@ public record PrimitiveWidgetEntry(PrimitiveType function, Optional<RenderPipeli
             }
 
             return new PrimitiveWidgetEntry(this.function, Optional.ofNullable(pipeline), this.bounds);
+        }
+
+        private Optional<GuiPipelineOverrides> extractPipelineOverrides(final PrimitiveType primitiveType) {
+            Optional<GuiPipelineOverrides> pipelineOverrides = Optional.empty();
+            if (primitiveType instanceof Fill fill) {
+                pipelineOverrides = fill.pipelineOverrides();
+            } else if (primitiveType instanceof FillGradient fillGradient) {
+                pipelineOverrides = fillGradient.pipelineOverrides();
+            } else if (primitiveType instanceof Outline outline) {
+                pipelineOverrides = outline.pipelineOverrides();
+            } else if (primitiveType instanceof OutlineGradient outlineGradient) {
+                pipelineOverrides = outlineGradient.pipelineOverrides();
+            }
+
+            return pipelineOverrides;
         }
     }
 }
