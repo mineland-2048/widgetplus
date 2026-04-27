@@ -1,6 +1,7 @@
 package btw.lowercase.widgetplus.impl.entries;
 
 import btw.lowercase.widgetplus.impl.WidgetState;
+import btw.lowercase.widgetplus.impl.util.Utils;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -15,7 +16,7 @@ public record ReferenceWidgetEntry(Identifier id) implements WidgetEntry {
 
     public record Unbaked(Identifier id) implements WidgetEntry.Unbaked {
         public static final MapCodec<Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Identifier.CODEC.fieldOf("id").forGetter(Unbaked::id)
+                Utils.IDENTIFIER_CODEC.fieldOf("id").forGetter(Unbaked::id)
         ).apply(instance, Unbaked::new));
 
         @Override
