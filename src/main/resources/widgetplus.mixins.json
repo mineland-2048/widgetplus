@@ -5,8 +5,11 @@
 	"client": [
 		"AbstractSliderButtonAccessor",
 		"MixinAbstractButton",
+		"MixinAbstractScrollArea",
 		"MixinAbstractSliderButton",
+		"MixinCheckbox",
 		"MixinClientBootstrap",
+		"MixinEditBox",
 		"MixinFramerateLimitTracker_UncapUIFPS",
 		"MixinMinecraft",
 		"MixinRenderPipeline$Builder",
