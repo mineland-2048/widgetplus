@@ -15,6 +15,7 @@ public class WidgetEntries {
     public static void bootstrap() {
         ID_MAPPER.put(WidgetPlus.id("empty"), EmptyWidgetEntry.Unbaked.MAP_CODEC);
         ID_MAPPER.put(WidgetPlus.id("default"), DefaultWidgetEntry.Unbaked.MAP_CODEC);
+        ID_MAPPER.put(WidgetPlus.id("fallback"), FallbackWidgetEntry.Unbaked.MAP_CODEC);
         ID_MAPPER.put(WidgetPlus.id("texture"), TextureWidgetEntry.Unbaked.MAP_CODEC);
         ID_MAPPER.put(WidgetPlus.id("composite"), CompositeWidgetEntry.Unbaked.MAP_CODEC);
         ID_MAPPER.put(WidgetPlus.id("range_dispatch"), RangeDispatchWidgetEntry.Unbaked.MAP_CODEC);
