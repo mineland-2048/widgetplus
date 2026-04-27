@@ -1,6 +1,5 @@
-package btw.lowercase.widgetplus.impl;
+package btw.lowercase.widgetplus.impl.util;
 
-import btw.lowercase.widgetplus.Utils;
 import com.mojang.blaze3d.pipeline.ColorTargetState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.serialization.Codec;

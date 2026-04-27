@@ -1,6 +1,6 @@
 package btw.lowercase.widgetplus.impl.states;
 
-import btw.lowercase.widgetplus.impl.GuiPipelineOverrides;
+import btw.lowercase.widgetplus.impl.util.GuiPipelineOverrides;
 import btw.lowercase.widgetplus.impl.WidgetState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.serialization.MapCodec;

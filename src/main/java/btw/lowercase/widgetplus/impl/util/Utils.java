@@ -1,4 +1,4 @@
-package btw.lowercase.widgetplus;
+package btw.lowercase.widgetplus.impl.util;
 
 import com.mojang.blaze3d.pipeline.BlendFunction;
 import com.mojang.blaze3d.pipeline.ColorTargetState;
