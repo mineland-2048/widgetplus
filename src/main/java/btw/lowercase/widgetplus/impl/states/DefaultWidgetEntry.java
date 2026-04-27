@@ -6,7 +6,7 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import org.jspecify.annotations.Nullable;
 
 public class DefaultWidgetEntry implements WidgetEntry {
-    private static final DefaultWidgetEntry INSTANCE = new DefaultWidgetEntry();
+    public static final DefaultWidgetEntry INSTANCE = new DefaultWidgetEntry();
 
     @Override
     public @Nullable WidgetState resolve(final AbstractWidget widget) {

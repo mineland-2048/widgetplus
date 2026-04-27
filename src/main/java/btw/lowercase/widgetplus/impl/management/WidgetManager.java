@@ -3,6 +3,7 @@ package btw.lowercase.widgetplus.impl.management;
 import btw.lowercase.widgetplus.WidgetPlus;
 import btw.lowercase.widgetplus.impl.WidgetDefinition;
 import btw.lowercase.widgetplus.impl.WidgetState;
+import btw.lowercase.widgetplus.impl.states.DefaultWidgetEntry;
 import btw.lowercase.widgetplus.impl.states.WidgetEntry;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.resources.Identifier;
@@ -56,12 +57,13 @@ public class WidgetManager {
         return WidgetPlus.id(type.getSerializedName());
     }
 
-    public WidgetState getState(final Identifier type, final AbstractWidget widget, int hashOffset) {
+    public WidgetState getState(final Identifier type, final AbstractWidget widget, final int hash_offset) {
         final WidgetDefinitionCollection collection = this.entries.getOrDefault(type, null);
         if (collection != null) {
-            return collection.getState(widget, hashOffset);
+            return collection.getState(widget, hash_offset);
         } else {
-            return null;
+            // TODO/NOTE: Return default widget if no widget is found in registry
+            return DefaultWidgetEntry.INSTANCE.resolve(widget);
         }
     }
 
@@ -147,9 +149,8 @@ public class WidgetManager {
             return this.definitions.getOrDefault(id, null);
         }
 
-        // This also bakes the models because the render thread is picky on resource loading.
-        public WidgetState getState(@NotNull final AbstractWidget widget, final int hashOffset) {
-            final int hash_value = widget.hashCode() + hashOffset;
+        public WidgetState getState(@NotNull final AbstractWidget widget, final int hash_offset) {
+            final int hash_value = widget.hashCode() + hash_offset;
 
             final ArrayList<Identifier> lookup = new ArrayList<>(hashValueLookup.getOrDefault(hash_value, identifiersOrder));
             lookup.addAll(identifiersOrder);
