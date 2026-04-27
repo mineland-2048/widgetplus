@@ -14,8 +14,8 @@ public class SelectWidgetProperties {
     public static final Codec<SelectWidgetProperty.Type<?, ?>> CODEC = ID_MAPPER.codec(Identifier.CODEC);
 
     public static void bootstrap() {
-        ID_MAPPER.put(WidgetPlus.id("dimension"), Dimension.TYPE);
         ID_MAPPER.put(WidgetPlus.id("graphics_preset"), VanillaGraphicsPreset.TYPE);
-        ID_MAPPER.put(WidgetPlus.id("weather"), Weather.TYPE);
+        ID_MAPPER.put(WidgetPlus.id("world/dimension"), Dimension.TYPE);
+        ID_MAPPER.put(WidgetPlus.id("world/weather"), Weather.TYPE);
     }
 }
